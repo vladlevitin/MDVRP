@@ -8,4 +8,8 @@ public class Chromosome {
 
     ArrayList<ArrayList<Integer>> depots;
 
+    public Chromosome(){
+
+    }
+
 }

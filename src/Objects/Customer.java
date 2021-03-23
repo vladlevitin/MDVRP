@@ -16,7 +16,7 @@ public class Customer {
     }
 
     public String toString(){
-        return "Customer ID "+Integer.toString(this.ID)+" - (x:"+Integer.toString(this.x_cordinate)+",y:"+Integer.toString(this.y_cordinate)+")";
+        return "Customer ID: "+Integer.toString(this.ID)+", Duration: "+Integer.toString(duration)+", Demand: "+Integer.toString(demand)+" - (x:"+Integer.toString(this.x_cordinate)+",y:"+Integer.toString(this.y_cordinate)+")";
     }
 }
 

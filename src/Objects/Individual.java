@@ -6,6 +6,7 @@ public class Individual {
 
     Chromosome chromosome = new Chromosome();
 
+    public double fitness=0;
     public int max_cordinate=0;
     public int min_cordinate=0;
 

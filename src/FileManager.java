@@ -106,7 +106,9 @@ public class FileManager {
 
     }
 
-    public void exportSolution(){
+    public void exportSolution(Individual individual, String filename){
+        File file = new File(filename);
+
 
     }
 

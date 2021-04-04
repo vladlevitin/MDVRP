@@ -37,7 +37,7 @@ public class FileManager {
             int max_load_vechicle=scanner.nextInt();
 
             duration_list.add(duration);
-            max_load_vechicle_list.add(max_cordinate);
+            max_load_vechicle_list.add(max_load_vechicle);
 
         }
 
@@ -108,6 +108,8 @@ public class FileManager {
 
     public void exportSolution(Individual individual, String filename){
         File file = new File(filename);
+
+
 
 
     }

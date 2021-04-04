@@ -1,4 +1,7 @@
 import Objects.Individual;
+import Objects.VechicleRoute;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -16,9 +19,28 @@ public class Main {
         manager.ImportData(fileName,individual);
 
         manager.nearestDepot(individual);
+
         System.out.println(individual.customers);
         System.out.println(individual.depots);
-        System.out.println(individual.depots.get(3).customers.size());
+
+        int j=3; //depot number
+        System.out.println(individual.depots.get(j));
+        System.out.println(individual.depots.get(j).customers);
+        System.out.println(individual.depots.get(j).customers.size());
+
+
+
+        RouteScheduler scheduler=new RouteScheduler();
+        ArrayList<VechicleRoute> routes=scheduler.PhaseOneSchedule(individual.depots.get(j));
+
+        for(int i=0; i<routes.size();i++) {
+            System.out.println(routes.get(i).customers.size());
+            System.out.println(routes.get(i).customers);
+            System.out.println(routes.get(i).vechicle_load);
+            System.out.println(routes.get(i).duration);
+        }
+
+
 
 
 

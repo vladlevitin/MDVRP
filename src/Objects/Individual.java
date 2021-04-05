@@ -12,6 +12,7 @@ public class Individual {
 
     public ArrayList<Customer> customers=new ArrayList<Customer>();
     public ArrayList<Depot> depots=new ArrayList<Depot>();
+    public ArrayList<ArrayList<VechicleRoute>> routes=new ArrayList<ArrayList<VechicleRoute>>();
 
     public Individual(){
 
@@ -27,6 +28,16 @@ public class Individual {
 
     public void setChromosome(Chromosome chromosome){
         this.chromosome=chromosome;
+    }
+
+    public double getFitness(){
+        double fit_val=0;
+        for(int i=0;i<routes.size();i++){
+            for(int j=0; j<routes.get(i).size();j++){
+                fit_val+=routes.get(i).get(j).distance;
+            }
+        }
+        return fit_val;
     }
 
 }

@@ -5,6 +5,8 @@ import Objects.Individual;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -106,10 +108,40 @@ public class FileManager {
 
     }
 
-    public void exportSolution(Individual individual, String filename){
+    public void exportSolution(Individual individual, String filename) throws IOException {
         File file = new File(filename);
 
 
+        FileWriter fileWriter=new FileWriter(file);
+
+        double fitness= individual.getFitness();
+        System.out.println(fitness+"\n");
+
+        fileWriter.write(fitness+"\n");
+
+        for(int i=0; i<individual.routes.size();i++){
+
+            for(int j=0; j<individual.routes.get(i).size(); j++){
+
+                 double distance=individual.routes.get(i).get(j).distance;
+                 int vechicle_load=individual.routes.get(i).get(j).vechicle_load;
+
+                 System.out.println(distance+"\t"+vechicle_load+"\n");
+
+                 fileWriter.write((i+1)+"\t"+(j+1)+"\t"+distance+"\t"+vechicle_load+"\t0");
+
+                 for (int k=0;k<individual.routes.get(i).get(j).customers.size();k++){
+                     fileWriter.write(" "+individual.routes.get(i).get(j).customers.get(k).ID);
+
+                     System.out.println(individual.routes.get(i).get(j).customers.get(k).ID+"\n");
+                 }
+                 System.out.println("\n");
+                 fileWriter.write(" 0 \n");
+            }
+
+        }
+
+        fileWriter.close();
 
 
     }

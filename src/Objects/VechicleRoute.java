@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class VechicleRoute {
     public ArrayList<Customer> customers=new ArrayList<Customer>();
     public int vechicle_load=0;
-    public double duration=0;
+    public double distance =0;
     public Depot depot;
 
 
@@ -16,11 +16,14 @@ public class VechicleRoute {
     public void add_Customer(Customer customer){
         this.customers.add(customer);
         this.vechicle_load+=customer.demand;
-        this.duration+=customer.duration;
     }
 
     public VechicleRoute(Depot depot){
         this.depot=depot;
+    }
+
+    public String toString(){
+        return depot.toString();
     }
 
 

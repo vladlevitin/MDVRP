@@ -6,10 +6,7 @@ public class Chromosome {
     //The chromosome represents list of depots
     //For each depot there is a integer list of customers (gene)
 
-    ArrayList<ArrayList<Integer>> depots;
+    public ArrayList<ArrayList<Integer>> depots;
 
-    public Chromosome(){
-
-    }
 
 }

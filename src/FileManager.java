@@ -54,7 +54,8 @@ public class FileManager {
 
             Customer customer= new Customer(ID, x_cordinate, y_cordinate, duration, demand);
 
-            individual.addCustomer(customer);
+
+            individual.customers.add(customer);
 
             max_cordinate = Math.max(max_cordinate, Math.max(x_cordinate, y_cordinate));
             min_cordinate = Math.min(min_cordinate, Math.min(x_cordinate, y_cordinate));
@@ -72,7 +73,8 @@ public class FileManager {
 
             Depot depot=new Depot(ID,x_cordinate,y_cordinate,duration,max_load_vechicle, n_vechicles);
 
-            individual.addDepot(depot);
+
+            individual.depots.add(depot);
 
             max_cordinate = Math.max(max_cordinate, Math.max(x_cordinate, y_cordinate));
             min_cordinate = Math.min(min_cordinate, Math.min(x_cordinate, y_cordinate));
@@ -115,7 +117,7 @@ public class FileManager {
         FileWriter fileWriter=new FileWriter(file);
 
         double fitness= individual.getFitness();
-        System.out.println(fitness+"\n");
+        //System.out.println(fitness+"\n");
 
         fileWriter.write(fitness+"\n");
 
@@ -126,17 +128,17 @@ public class FileManager {
                  double distance=individual.routes.get(i).get(j).distance;
                  int vechicle_load=individual.routes.get(i).get(j).vechicle_load;
 
-                 System.out.println(distance+"\t"+vechicle_load+"\n");
+                 //System.out.println(distance+"\t"+vechicle_load+"\n");
 
-                 fileWriter.write((i+1)+"\t"+(j+1)+"\t"+distance+"\t"+vechicle_load+"\t0");
+                 fileWriter.write((i+1)+"\t"+(j+1)+"\t"+distance+"\t"+vechicle_load+"\t"+0);
 
                  for (int k=0;k<individual.routes.get(i).get(j).customers.size();k++){
                      fileWriter.write(" "+individual.routes.get(i).get(j).customers.get(k).ID);
 
-                     System.out.println(individual.routes.get(i).get(j).customers.get(k).ID+"\n");
+                     //System.out.println(individual.routes.get(i).get(j).customers.get(k).ID+"\n");
                  }
-                 System.out.println("\n");
-                 fileWriter.write(" 0 \n");
+                 //System.out.println("\n");
+                 fileWriter.write("0"+"\n");
             }
 
         }

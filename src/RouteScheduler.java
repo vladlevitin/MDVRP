@@ -25,6 +25,10 @@ public class RouteScheduler {
         for (int i=0;i<depot.customers.size();i++){
             double distance=0;
 
+            //check if the number of Vechicles has been exceeded
+            if(depot.n_vechicles<vRoutes.size()){
+                depot.vehicles_exceeded=true;
+            }
 
             if(vRoute.vechicle_load+depot.customers.get(i).demand<=depot.max_load_vechicle
                     && (depot.max_duration==0 || vRoute.distance +depot.customers.get(i).duration<=depot.max_duration)){
@@ -113,9 +117,13 @@ public class RouteScheduler {
     }
 
     public boolean validConstraint(VechicleRoute vechicleRoute, Customer customer){
-        if(vechicleRoute.depot.max_duration==0||(vechicleRoute.distance +customer.duration <= vechicleRoute.depot.max_duration)
-                && vechicleRoute.vechicle_load+customer.demand<=vechicleRoute.depot.max_load_vechicle){
-            return true;
+        if(vechicleRoute.vechicle_load+customer.demand<=vechicleRoute.depot.max_load_vechicle) {
+            if (vechicleRoute.depot.max_duration == 0 || (vechicleRoute.distance + customer.duration <= vechicleRoute.depot.max_duration)) {
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
@@ -131,7 +139,7 @@ public class RouteScheduler {
             VechicleRoute vechicleRouteOne=vRoutes.get(i);
             VechicleRoute vechicleRouteTwo=vRoutes.get(i+1);
 
-            System.out.println("route selected");
+            //System.out.println("route selected");
 
             ArrayList<Customer> customersRouteOne=new ArrayList<Customer>(vechicleRouteOne.customers);
             ArrayList<Customer> customersRouteTwo=new ArrayList<Customer>(vechicleRouteTwo.customers);
@@ -143,7 +151,7 @@ public class RouteScheduler {
 
             if(customersRouteOne.size()>0 && validConstraint(vechicleRouteTwo, customer)==true){
 
-                System.out.println("constraint met");
+                //System.out.println("constraint met");
 
                 VechicleRoute newVechicleRouteOne=new VechicleRoute(vechicleRouteOne.depot);
                 VechicleRoute newVechicleRouteTwo=new VechicleRoute(vechicleRouteTwo.depot);
@@ -162,12 +170,12 @@ public class RouteScheduler {
 
                 //check if the new distance is less and if so replace the old routes with the new once
                 double new_distance=newVechicleRouteOne.distance +newVechicleRouteTwo.distance;
-                System.out.println("New distance: "+new_distance);
+                //System.out.println("New distance: "+new_distance);
                 double old_distance=vechicleRouteOne.distance +vechicleRouteTwo.distance;
-                System.out.println("Old distance: "+old_distance);
+                //System.out.println("Old distance: "+old_distance);
 
                 if(new_distance<old_distance){
-                    System.out.println("Route modified");
+                    //System.out.println("Route modified");
                     vRoutes.set(i,newVechicleRouteOne);
                     vRoutes.set(i+1, newVechicleRouteTwo);
                 }
@@ -188,7 +196,12 @@ public class RouteScheduler {
     public void RouteScheduler(Individual individual){
         individual.routes=new ArrayList<ArrayList<VechicleRoute>>();
         for (int i=0;i<individual.depots.size();i++){
-            ArrayList<VechicleRoute> depotRoutes= PhaseOneSchedule(individual.depots.get(i));
+            ArrayList<VechicleRoute> depotRoutes=PhaseOneSchedule(individual.depots.get(i));
+
+            //can be used to eliminate individuals with exceeded vehicles (measured by routes) per depot
+            if(individual.depots.get(i).vehicles_exceeded==true){
+                individual.vechiles_exceeded=true;
+            }
             PhaseTwoSchedule(depotRoutes);
             individual.routes.add(depotRoutes);
         }

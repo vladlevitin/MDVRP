@@ -7,6 +7,7 @@ public class Depot {
     public int n_vechicles;
     public int max_duration;
     public int max_load_vechicle;
+    public boolean vehicles_exceeded=false;
 
     public int ID;
     public int x_cordinate;

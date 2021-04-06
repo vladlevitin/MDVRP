@@ -13,10 +13,7 @@ public class VechicleRoute {
 
 
 
-    public void add_Customer(Customer customer){
-        this.customers.add(customer);
-        this.vechicle_load+=customer.demand;
-    }
+
 
     public VechicleRoute(Depot depot){
         this.depot=depot;
